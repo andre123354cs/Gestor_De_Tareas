@@ -111,3 +111,53 @@ with st.expander("Finalizar Tareas"):
     nuevo_estado = st.selectbox("Nuevo estado", estados)
     if st.button("Actualizar Estado"):
         actualizar_estado(tarea_id, nuevo_estado)
+def mostrar_detalles_tarea(tarea_id):
+    # Obtener los detalles de la tarea
+    conn = get_db_connection()
+    cursor = conn.execute("SELECT * FROM tareas WHERE id=?", (tarea_id,))
+    tarea = cursor.fetchone()
+    conn.close()
+
+    # Mostrar los detalles de la tarea
+    st.subheader(f"Detalles de la tarea {tarea_id}")
+    # ... (mostrar los detalles de la tarea en una tabla o usando st.write)
+
+    with st.expander("Avances de la tarea"):
+        # Obtener los avances de la tarea (si existe la tabla de avances)
+        try:
+            cursor = conn.execute("SELECT * FROM avances WHERE tarea_id=?", (tarea_id,))
+            avances = cursor.fetchall()
+            df_avances = pd.DataFrame(avances, columns=['ID', 'Tarea ID', 'Fecha', 'Descripción'])
+            st.table(df_avances)
+        except sqlite3.OperationalError:
+            st.write("Aún no hay avances para esta tarea.")
+
+        # Formulario para agregar un nuevo avance
+        nuevo_avance = st.text_area("Nuevo avance")
+        if st.button("Agregar Avance"):
+            # Crear la tabla de avances si no existe
+            create_avances_table()
+            # Insertar el nuevo avance en la base de datos
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            cursor.execute("INSERT INTO avances (tarea_id, fecha_avance, descripcion) VALUES (?, ?, ?)",
+                           (tarea_id, datetime.now().strftime("%Y-%m-%d"), nuevo_avance))
+            conn.commit()
+            conn.close()
+            st.success("Avance registrado correctamente")
+            st.experimental_rerun()
+
+def create_avances_table():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS avances (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            tarea_id INTEGER,
+            fecha_avance TEXT,
+            descripcion TEXT,
+            FOREIGN KEY(tarea_id) REFERENCES tareas(id)
+        )
+    ''')
+    conn.commit()
+    conn.close()
