@@ -10,7 +10,7 @@ st.set_page_config(layout="wide")
 st.markdown("""
 <div style="display: flex; justify-content: space-between; align-items: center;">
   <img src="https://cdn-icons-png.flaticon.com/128/5110/5110088.png" alt="New Left Logo" width="100" height="100">
-  <h1 style='color: #0f0a68; font-size: 30px;'> ProductivaApp </h1>
+  <h1 style='color: #0f0a68; font-size: 30px;'> ProductivApp ()</h1>
   <img src="https://cdn-icons-png.flaticon.com/128/8637/8637660.png" alt="New Right Logo" width="100" height="100">
 </div>
 """, unsafe_allow_html=True)
@@ -75,10 +75,17 @@ conn.close()
 # Convertir los resultados a un DataFrame de pandas para mejor visualización
 df = pd.DataFrame(tareas, columns=['ID', 'Funcionario', 'Tarea', 'Prioridad', 'Fecha de Entrega', 'Estado'])
 
-# Mostrar el DataFrame en Streamlit
 st.subheader("Todas las tareas")
 st.table(df)
 
+estado_filtro = st.selectbox('Selecciona un estado', df['Estado'].unique())
+
+# Filtrar el DataFrame basado en el estado seleccionado
+df_filtrado = df[df['Estado'] == estado_filtro]
+
+# Mostrar la tabla filtrada
+st.subheader("Tareas filtradas por estado")
+st.table(df_filtrado)
 
 # Buscar tareas
 with st.expander("Buscar tareas"):
