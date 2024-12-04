@@ -45,8 +45,8 @@ estados = ['Activa', 'Terminada', 'Vencida']
 # Crear la tabla si no existe
 create_table()
 
-# Formulario para agregar una nueva tarea
-with st.form("my_form"):
+with st.expander("Asignacion de tareas"):
+  with st.form("my_form"):
     funcionario = st.text_input("Funcionario")
     tarea = st.text_area("Tarea")
     prioridad = st.selectbox("Prioridad", ["Alta", "Media", "Baja"])
