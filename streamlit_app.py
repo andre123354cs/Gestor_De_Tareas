@@ -79,18 +79,18 @@ df = pd.DataFrame(tareas, columns=['ID', 'Funcionario', 'Tarea', 'Prioridad', 'F
 st.subheader("Todas las tareas")
 st.table(df)
 
-tareas_agrupadas = df.groupby(['Funcionario', 'Estado']).size().reset_index(name='Cantidad')
-
-# Crear el gráfico de barras
-plt.figure(figsize=(10, 6))
-sns.barplot(x='Funcionario', y='Cantidad', hue='Estado', data=tareas_agrupadas)
-plt.title('Cantidad de Tareas por Funcionario y Estado')
-plt.xlabel('Funcionario')
-plt.ylabel('Cantidad de Tareas')
-plt.xticks(rotation=45)
-
-# Mostrar el gráfico en Streamlit
-st.pyplot(plt)
+  tareas_agrupadas = df.groupby(['Funcionario', 'Estado']).size().reset_index(name='Cantidad')
+  
+  # Crear el gráfico de barras
+  plt.figure(figsize=(10, 6))
+  sns.barplot(x='Funcionario', y='Cantidad', hue='Estado', data=tareas_agrupadas)
+  plt.title('Cantidad de Tareas por Funcionario y Estado')
+  plt.xlabel('Funcionario')
+  plt.ylabel('Cantidad de Tareas')
+  plt.xticks(rotation=45)
+  
+  # Mostrar el gráfico en Streamlit
+  st.pyplot(plt)
 
 # Buscar tareas
 with st.expander("Buscar tareas"):
