@@ -46,6 +46,16 @@ estados = ['Activa', 'Terminada']
 # Crear la tabla si no existe
 create_table()
 
+def mostrar_detalles_tarea(tarea_id):
+    # Obtener los detalles de la tarea
+    conn = get_db_connection()
+    cursor = conn.execute("SELECT * FROM tareas WHERE id=?", (tarea_id,))
+    tarea = cursor.fetchone()
+    conn.close()
+
+    # Mostrar los detalles de la tarea
+    st.subheader(f"Detalles de la tarea {tarea_id}")
+    # ... (mostrar los detalles de la tarea en una tabla o usando st.write)
 
   
 with st.expander("Asignacion de tareas"):
@@ -101,37 +111,27 @@ with st.expander("Buscar tareas"):
         df_resultados = pd.DataFrame(resultados, columns=['ID', 'Funcionario', 'Tarea', 'Prioridad', 'Fecha de Entrega', 'Estado'])
         st.table(df_resultados)
 
-def mostrar_detalles_tarea(tarea_id):
-    # Obtener los detalles de la tarea
-    conn = get_db_connection()
-    cursor = conn.execute("SELECT * FROM tareas WHERE id=?", (tarea_id,))
-    tarea = cursor.fetchone()
-    conn.close()
 
-    # Mostrar los detalles de la tarea
-    st.subheader(f"Detalles de la tarea {tarea_id}")
-    # ... (mostrar los detalles de la tarea en una tabla o usando st.write)
+with st.expander("Avances de tareas"):
+    # Obtener los avances de la tarea
+    cursor = conn.execute("SELECT * FROM avances WHERE tarea_id=?", (tarea_id,))
+    avances = cursor.fetchall()
+    df_avances = pd.DataFrame(avances, columns=['ID', 'Tarea ID', 'Fecha', 'Descripción'])
 
-    with st.expander("Avances de tareas"):
-        # Obtener los avances de la tarea
-        cursor = conn.execute("SELECT * FROM avances WHERE tarea_id=?", (tarea_id,))
-        avances = cursor.fetchall()
-        df_avances = pd.DataFrame(avances, columns=['ID', 'Tarea ID', 'Fecha', 'Descripción'])
+    # Mostrar la tabla de avances
+    st.table(df_avances)
 
-        # Mostrar la tabla de avances
-        st.table(df_avances)
-
-        # Formulario para registrar un nuevo avance
-        avance = st.text_area("Nuevo avance")
-        if st.button("Registrar Avance"):
-            conn = get_db_connection()
-            cursor = conn.cursor()
-            cursor.execute("INSERT INTO avances (tarea_id, fecha_avance, descripcion) VALUES (?, ?, ?)",
-                           (tarea_id, datetime.now().strftime("%Y-%m-%d"), avance))
-            conn.commit()
-            conn.close()
-            st.success("Avance registrado correctamente")
-            st.experimental_rerun()
+    # Formulario para registrar un nuevo avance
+    avance = st.text_area("Nuevo avance")
+    if st.button("Registrar Avance"):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO avances (tarea_id, fecha_avance, descripcion) VALUES (?, ?, ?)",
+                       (tarea_id, datetime.now().strftime("%Y-%m-%d"), avance))
+        conn.commit()
+        conn.close()
+        st.success("Avance registrado correctamente")
+        st.experimental_rerun()
 
 # Seleccionar una tarea para ver los detalles
 tarea_id_seleccionada = st.number_input("Selecciona el ID de una tarea", min_value=1)
