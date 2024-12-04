@@ -45,7 +45,16 @@ estados = ['Activa', 'Terminada']
 # Crear la tabla si no existe
 create_table()
 
+def mostrar_detalles_tarea(tarea_id):
+    # Obtener los detalles de la tarea
+    conn = get_db_connection()
+    cursor = conn.execute("SELECT * FROM tareas WHERE id=?", (tarea_id,))
+    tarea = cursor.fetchone()
+    conn.close()
 
+    # Mostrar los detalles de la tarea
+    st.subheader(f"Detalles de la tarea {tarea_id}")
+  
 with st.expander("Asignacion de tareas"):
   with st.form("my_form"):
     funcionario = st.selectbox("Funcionario", funcionarios_permitidos)
@@ -72,6 +81,7 @@ conn = get_db_connection()
 cursor = conn.execute("SELECT * FROM tareas")
 tareas = cursor.fetchall()
 conn.close()
+
 
 # Convertir los resultados a un DataFrame de pandas para mejor visualización
 df = pd.DataFrame(tareas, columns=['ID', 'Funcionario', 'Tarea', 'Prioridad', 'Fecha de Entrega', 'Estado'])
