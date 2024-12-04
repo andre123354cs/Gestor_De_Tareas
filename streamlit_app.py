@@ -25,6 +25,29 @@ db = firebase.database()  # Referencia a la base de datos
  #   <h1 style='text-align: center; color: #005780; font-size: 50px;'>🌍 MetaData Yes BPO</h1>
 #""", unsafe_allow_html=True)
 
+
+# Función para conectar a la base de datos
+def get_db_connection():
+    conn = sqlite3.connect('tareas.db')
+    return conn
+
+# Crear la tabla de tareas si no existe
+def create_table():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS tareas (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            funcionario TEXT,
+            tarea TEXT,
+            prioridad TEXT,
+            fecha_entrega TEXT,
+            estado TEXT
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
 def interfaz(): 
     st.markdown("""
 <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -294,27 +317,6 @@ if __name__ == "__main__":
 
 
 
-# Función para conectar a la base de datos
-def get_db_connection():
-    conn = sqlite3.connect('tareas.db')
-    return conn
-
-# Crear la tabla de tareas si no existe
-def create_table():
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS tareas (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            funcionario TEXT,
-            tarea TEXT,
-            prioridad TEXT,
-            fecha_entrega TEXT,
-            estado TEXT
-        )
-    ''')
-    conn.commit()
-    conn.close()
 
 
 
