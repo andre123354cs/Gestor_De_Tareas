@@ -185,7 +185,7 @@ def main():
         user_info = st.session_state.user_info
         if user_info['role'] == 'admin':
             with st.sidebar:
-                st.markdown(f"### 🏠 Bienvenido, {user_info['name']}!")
+                st.markdown(f"### 🌐 Bienvenido, {user_info['name']}!")
                 st.markdown(f"Rol: **{user_info['role']}**")
                 #st.button("Cerrar sesión", on_click=lambda: st.session_state.update({"user_info": None}))
                 tabs = st.tabs(["Crear usuario", "Gestionar usuarios"])
@@ -194,7 +194,7 @@ def main():
                 with tabs[1]:
                     manage_users_module()    
         st.markdown(f"""
-<h1 style='text-align: center; color: #005780; font-size: 15px;'>🌱 Bienvenido, {user_info['name']} </h1>
+<h1 style='text-align: center; color: #005780; font-size: 15px;'>🌐 Bienvenido, {user_info['name']} </h1>
 """, unsafe_allow_html=True)  
         interfaz()
     else:
