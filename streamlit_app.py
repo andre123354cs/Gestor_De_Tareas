@@ -37,7 +37,7 @@ def create_table():
     conn.commit()
     conn.close()
 
-
+funcionarios_permitidos = ["Alisson Garcia", "Andres Vanegas", "Andres Diaz", "Felipe Rodriguez", "Maicol Yepes"]
 
 # Opciones para el estado de la tarea
 estados = ['Activa', 'Terminada', 'Vencida']
@@ -47,7 +47,7 @@ create_table()
 
 with st.expander("Asignacion de tareas"):
   with st.form("my_form"):
-    funcionario = st.text_input("Funcionario")
+    funcionario = st.selectbox("Funcionario", funcionarios_permitidos)
     tarea = st.text_area("Tarea")
     prioridad = st.selectbox("Prioridad", ["Alta", "Media", "Baja"])
     fecha_entrega = st.date_input("Fecha de entrega")
