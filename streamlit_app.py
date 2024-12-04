@@ -21,17 +21,11 @@ firebase = pyrebase.initialize_app(firebaseConfig)
 pb_auth = firebase.auth()
 db = firebase.database()  # Referencia a la base de datos
 
-#st.markdown("""
- #   <h1 style='text-align: center; color: #005780; font-size: 50px;'>🌍 MetaData Yes BPO</h1>
-#""", unsafe_allow_html=True)
 
-
-# Función para conectar a la base de datos
 def get_db_connection():
     conn = sqlite3.connect('tareas.db')
     return conn
 
-# Crear la tabla de tareas si no existe
 def create_table():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -52,7 +46,7 @@ def interfaz():
     st.markdown("""
 <div style="display: flex; justify-content: space-between; align-items: center;">
   <img src="https://cdn-icons-png.flaticon.com/128/5110/5110088.png" alt="New Left Logo" width="100" height="100">
-  <h1 style='color: #0f0a68; font-size: 30px;'> ProductivApp YesBPO</h1>
+  <h1 style='color: #0f0a68; font-size: 30px;'> ProductivApp </h1>
   <img src="https://cdn-icons-png.flaticon.com/128/8637/8637660.png" alt="New Right Logo" width="100" height="100">
 </div>
 """, unsafe_allow_html=True)
@@ -206,7 +200,7 @@ def main():
     else:
         st.markdown("")
         form = st.form("login_form")
-        form.markdown("<h2 style='text-align: center'>Autenticación</h2>", unsafe_allow_html=True)
+        form.markdown("<h2 style='text-align: center'>Autenticación🗝️</h2>", unsafe_allow_html=True)
         email = form.text_input("Correo")
         password = form.text_input("Contraseña", type="password")
         col1, col2 = form.columns([8, 2])
