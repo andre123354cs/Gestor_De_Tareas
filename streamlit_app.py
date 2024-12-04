@@ -7,6 +7,22 @@ def get_db_connection():
     conn = sqlite3.connect('tareas.db')
     return conn
 
+def create_table():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS tareas (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            funcionario TEXT,
+            tarea TEXT,
+            prioridad TEXT,
+            fecha_entrega TEXT,
+            estado TEXT
+        )
+    ''')
+    conn.commit()
+    conn.close()
+    
 # Título de la aplicación
 st.title("Gestor de Tareas Personalizado")
 
