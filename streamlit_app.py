@@ -84,7 +84,7 @@ df_filtrado = df[df['Estado'] == estado_filtro]
 
 # Mostrar la tabla filtrada
 st.subheader("Tareas")
-
+st.table(df_filtrado)
 
 
 
