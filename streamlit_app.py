@@ -85,7 +85,7 @@ df_filtrado = df[df['Estado'] == estado_filtro]
 # Mostrar la tabla filtrada
 st.subheader("Tareas")
 df_filtrado['Estado'] = df_filtrado['Estado'].astype('str')
-edited_df = st.data_editor(df_filtrado, column_config={'ID': st.column_config.ColumnConfig(disabled=True)})  # Deshabilitar edición de ID
+#edited_df = st.data_editor(df_filtrado, column_config={'ID': st.column_config.ColumnConfig(disabled=True)})  # Deshabilitar edición de ID
 
 # Botón para confirmar los cambios
 if st.button("Actualizar estados"):
