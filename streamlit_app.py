@@ -3,6 +3,7 @@ import sqlite3
 import pandas as pd
 
 
+edited_df = st.data_editor(df, column_config={'columna2': st.column_config.ColumnConfig(disabled=True)})
 
 # Configuración de la página para modo ancho
 st.set_page_config(layout="wide")
