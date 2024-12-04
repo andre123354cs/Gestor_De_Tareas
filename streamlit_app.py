@@ -4,6 +4,7 @@ import pandas as pd
 
 
 
+
 # Configuración de la página para modo ancho
 st.set_page_config(layout="wide")
 
