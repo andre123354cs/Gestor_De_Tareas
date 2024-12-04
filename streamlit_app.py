@@ -75,16 +75,13 @@ conn.close()
 # Convertir los resultados a un DataFrame de pandas para mejor visualización
 df = pd.DataFrame(tareas, columns=['ID', 'Funcionario', 'Tarea', 'Prioridad', 'Fecha de Entrega', 'Estado'])
 
-st.subheader("Todas las tareas")
-st.table(df)
-
 estado_filtro = st.selectbox('Selecciona un estado', df['Estado'].unique())
 
 # Filtrar el DataFrame basado en el estado seleccionado
 df_filtrado = df[df['Estado'] == estado_filtro]
 
 # Mostrar la tabla filtrada
-st.subheader("Tareas filtradas por estado")
+st.subheader("Tareas")
 st.table(df_filtrado)
 
 # Buscar tareas
@@ -99,12 +96,4 @@ with st.expander("Buscar tareas"):
         df_resultados = pd.DataFrame(resultados, columns=['ID', 'Funcionario', 'Tarea', 'Prioridad', 'Fecha de Entrega', 'Estado'])
         st.table(df_resultados)
 
-# Eliminar tareas
-with st.expander("Eliminar tareas"):
-    id_tarea = st.number_input("Ingrese el ID de la tarea a eliminar", min_value=1)
-    if st.button("Eliminar"):
-        conn = get_db_connection()
-        cursor = conn.execute("DELETE FROM tareas WHERE id=?", (id_tarea,))
-        conn.commit()
-        conn.close()
-        st.success("Tarea eliminada correctamente")
+
