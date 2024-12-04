@@ -76,7 +76,7 @@ conn.close()
 df = pd.DataFrame(tareas, columns=['ID', 'Funcionario', 'Tarea', 'Prioridad', 'Fecha de Entrega', 'Estado'])
 
 estados_unicos = df['Estado'].unique()
-estado_filtro = st.selectbox('Selecciona un estado', estados_unicos, index=list(estados_unicos).index('Activa'))
+estado_filtro = st.selectbox('Selecciona un estado', estados_unicos, index=list(estados_unicos))
 
 
 # Filtrar el DataFrame basado en el estado seleccionado
@@ -84,7 +84,7 @@ df_filtrado = df[df['Estado'] == estado_filtro]
 
 # Mostrar la tabla filtrada
 st.subheader("Tareas")
-
+st.table(df_filtrado)
 # Buscar tareas
 with st.expander("Buscar tareas"):
     buscar_por = st.selectbox("Buscar por", ["Funcionario", "Tarea"])
