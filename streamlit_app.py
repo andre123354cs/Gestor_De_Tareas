@@ -75,7 +75,9 @@ conn.close()
 # Convertir los resultados a un DataFrame de pandas para mejor visualización
 df = pd.DataFrame(tareas, columns=['ID', 'Funcionario', 'Tarea', 'Prioridad', 'Fecha de Entrega', 'Estado'])
 
-estado_filtro = st.selectbox('Selecciona un estado', df['Estado'].unique().index('Activa'))
+estados_unicos = df['Estado'].unique()
+estado_filtro = st.selectbox('Selecciona un estado', estados_unicos, index=list(estados_unicos).index('Activa'))
+
 
 
 # Filtrar el DataFrame basado en el estado seleccionado
