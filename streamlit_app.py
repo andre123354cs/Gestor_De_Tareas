@@ -194,122 +194,122 @@ estados = ['Activa', 'Terminada']
 create_table()
 
 
-  
-with st.expander("Asignacion de tareas"):
-  with st.form("my_form"):
-    funcionario = st.selectbox("Funcionario", funcionarios_permitidos)
-    tarea = st.text_area("Tarea")
-    prioridad = st.selectbox("Prioridad", ["Alta", "Media", "Baja"])
-    fecha_entrega = st.date_input("Fecha de entrega")
-    estado = st.selectbox("Estado", estados)
-    submitted = st.form_submit_button("Agregar Tarea")
-    if submitted:
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        try:
-            cursor.execute("INSERT INTO tareas (funcionario, tarea, prioridad, fecha_entrega, estado) VALUES (?, ?, ?, ?, ?)",
-                           (funcionario, tarea, prioridad, fecha_entrega, estado))
-            conn.commit()
-            st.success("Tarea agregada correctamente")
-        except sqlite3.Error as e:
-            st.error(f"Error al agregar la tarea: {e}")
-        finally:
-            conn.close()
-
-# Mostrar todas las tareas
-conn = get_db_connection()
-cursor = conn.execute("SELECT * FROM tareas")
-tareas = cursor.fetchall()
-conn.close()
-
-
-# Convertir los resultados a un DataFrame de pandas para mejor visualización
-df = pd.DataFrame(tareas, columns=['ID', 'Funcionario', 'Tarea', 'Prioridad', 'Fecha de Entrega', 'Estado'])
-
-estados_unicos = df['Estado'].unique()
-estado_filtro = st.selectbox('Selecciona un estado', estados_unicos, index=list(estados_unicos).index('Terminada'))
-
-
-# Filtrar el DataFrame basado en el estado seleccionado
-df_filtrado = df[df['Estado'] == estado_filtro]
-
-# Mostrar la tabla filtrada
-st.subheader("Tareas")
-st.table(df_filtrado)
-# Buscar tareas
-with st.expander("Buscar tareas"):
-    buscar_por = st.selectbox("Buscar por", ["Funcionario", "Tarea"])
-    busqueda = st.text_input("Ingrese el término de búsqueda")
-    if busqueda:
-        conn = get_db_connection()
-        cursor = conn.execute(f"SELECT * FROM tareas WHERE {buscar_por} LIKE '%{busqueda}%'")
-        resultados = cursor.fetchall()
-        conn.close()
-        df_resultados = pd.DataFrame(resultados, columns=['ID', 'Funcionario', 'Tarea', 'Prioridad', 'Fecha de Entrega', 'Estado'])
-        st.table(df_resultados)
-
-def actualizar_estado(tarea_id, nuevo_estado):
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("UPDATE tareas SET estado = ? WHERE id = ?", (nuevo_estado, tarea_id))
-    conn.commit()
-    conn.close()
-    st.success("Estado actualizado correctamente")
-
-with st.expander("Finalizar Tareas"):
-    tarea_id = st.number_input("Ingrese el ID de la tarea", min_value=1)
-    nuevo_estado = st.selectbox("Nuevo estado", estados)
-    if st.button("Actualizar Estado"):
-        actualizar_estado(tarea_id, nuevo_estado)
-def mostrar_detalles_tarea(tarea_id):
-    # Obtener los detalles de la tarea
-    conn = get_db_connection()
-    cursor = conn.execute("SELECT * FROM tareas WHERE id=?", (tarea_id,))
-    tarea = cursor.fetchone()
-    conn.close()
-
-    # Mostrar los detalles de la tarea
-    st.subheader(f"Detalles de la tarea {tarea_id}")
-    # ... (mostrar los detalles de la tarea en una tabla o usando st.write)
-
-    with st.expander("Avances de la tarea"):
-        # Obtener los avances de la tarea (si existe la tabla de avances)
-        try:
-            cursor = conn.execute("SELECT * FROM avances WHERE tarea_id=?", (tarea_id,))
-            avances = cursor.fetchall()
-            df_avances = pd.DataFrame(avances, columns=['ID', 'Tarea ID', 'Fecha', 'Descripción'])
-            st.table(df_avances)
-        except sqlite3.OperationalError:
-            st.write("Aún no hay avances para esta tarea.")
-
-        # Formulario para agregar un nuevo avance
-        nuevo_avance = st.text_area("Nuevo avance")
-        if st.button("Agregar Avance"):
-            # Crear la tabla de avances si no existe
-            create_avances_table()
-            # Insertar el nuevo avance en la base de datos
+def interfaz():  
+    with st.expander("Asignacion de tareas"):
+      with st.form("my_form"):
+        funcionario = st.selectbox("Funcionario", funcionarios_permitidos)
+        tarea = st.text_area("Tarea")
+        prioridad = st.selectbox("Prioridad", ["Alta", "Media", "Baja"])
+        fecha_entrega = st.date_input("Fecha de entrega")
+        estado = st.selectbox("Estado", estados)
+        submitted = st.form_submit_button("Agregar Tarea")
+        if submitted:
             conn = get_db_connection()
             cursor = conn.cursor()
-            cursor.execute("INSERT INTO avances (tarea_id, fecha_avance, descripcion) VALUES (?, ?, ?)",
-                           (tarea_id, datetime.now().strftime("%Y-%m-%d"), nuevo_avance))
-            conn.commit()
-            conn.close()
-            st.success("Avance registrado correctamente")
-            st.experimental_rerun()
-
-def create_avances_table():
+            try:
+                cursor.execute("INSERT INTO tareas (funcionario, tarea, prioridad, fecha_entrega, estado) VALUES (?, ?, ?, ?, ?)",
+                               (funcionario, tarea, prioridad, fecha_entrega, estado))
+                conn.commit()
+                st.success("Tarea agregada correctamente")
+            except sqlite3.Error as e:
+                st.error(f"Error al agregar la tarea: {e}")
+            finally:
+                conn.close()
+    
+    # Mostrar todas las tareas
     conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS avances (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            tarea_id INTEGER,
-            fecha_avance TEXT,
-            descripcion TEXT,
-            FOREIGN KEY(tarea_id) REFERENCES tareas(id)
-        )
-    ''')
-    conn.commit()
+    cursor = conn.execute("SELECT * FROM tareas")
+    tareas = cursor.fetchall()
     conn.close()
-
-        
+    
+    
+    # Convertir los resultados a un DataFrame de pandas para mejor visualización
+    df = pd.DataFrame(tareas, columns=['ID', 'Funcionario', 'Tarea', 'Prioridad', 'Fecha de Entrega', 'Estado'])
+    
+    estados_unicos = df['Estado'].unique()
+    estado_filtro = st.selectbox('Selecciona un estado', estados_unicos, index=list(estados_unicos).index('Terminada'))
+    
+    
+    # Filtrar el DataFrame basado en el estado seleccionado
+    df_filtrado = df[df['Estado'] == estado_filtro]
+    
+    # Mostrar la tabla filtrada
+    st.subheader("Tareas")
+    st.table(df_filtrado)
+    # Buscar tareas
+    with st.expander("Buscar tareas"):
+        buscar_por = st.selectbox("Buscar por", ["Funcionario", "Tarea"])
+        busqueda = st.text_input("Ingrese el término de búsqueda")
+        if busqueda:
+            conn = get_db_connection()
+            cursor = conn.execute(f"SELECT * FROM tareas WHERE {buscar_por} LIKE '%{busqueda}%'")
+            resultados = cursor.fetchall()
+            conn.close()
+            df_resultados = pd.DataFrame(resultados, columns=['ID', 'Funcionario', 'Tarea', 'Prioridad', 'Fecha de Entrega', 'Estado'])
+            st.table(df_resultados)
+    
+    def actualizar_estado(tarea_id, nuevo_estado):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("UPDATE tareas SET estado = ? WHERE id = ?", (nuevo_estado, tarea_id))
+        conn.commit()
+        conn.close()
+        st.success("Estado actualizado correctamente")
+    
+    with st.expander("Finalizar Tareas"):
+        tarea_id = st.number_input("Ingrese el ID de la tarea", min_value=1)
+        nuevo_estado = st.selectbox("Nuevo estado", estados)
+        if st.button("Actualizar Estado"):
+            actualizar_estado(tarea_id, nuevo_estado)
+    def mostrar_detalles_tarea(tarea_id):
+        # Obtener los detalles de la tarea
+        conn = get_db_connection()
+        cursor = conn.execute("SELECT * FROM tareas WHERE id=?", (tarea_id,))
+        tarea = cursor.fetchone()
+        conn.close()
+    
+        # Mostrar los detalles de la tarea
+        st.subheader(f"Detalles de la tarea {tarea_id}")
+        # ... (mostrar los detalles de la tarea en una tabla o usando st.write)
+    
+        with st.expander("Avances de la tarea"):
+            # Obtener los avances de la tarea (si existe la tabla de avances)
+            try:
+                cursor = conn.execute("SELECT * FROM avances WHERE tarea_id=?", (tarea_id,))
+                avances = cursor.fetchall()
+                df_avances = pd.DataFrame(avances, columns=['ID', 'Tarea ID', 'Fecha', 'Descripción'])
+                st.table(df_avances)
+            except sqlite3.OperationalError:
+                st.write("Aún no hay avances para esta tarea.")
+    
+            # Formulario para agregar un nuevo avance
+            nuevo_avance = st.text_area("Nuevo avance")
+            if st.button("Agregar Avance"):
+                # Crear la tabla de avances si no existe
+                create_avances_table()
+                # Insertar el nuevo avance en la base de datos
+                conn = get_db_connection()
+                cursor = conn.cursor()
+                cursor.execute("INSERT INTO avances (tarea_id, fecha_avance, descripcion) VALUES (?, ?, ?)",
+                               (tarea_id, datetime.now().strftime("%Y-%m-%d"), nuevo_avance))
+                conn.commit()
+                conn.close()
+                st.success("Avance registrado correctamente")
+                st.experimental_rerun()
+    
+    def create_avances_table():
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS avances (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                tarea_id INTEGER,
+                fecha_avance TEXT,
+                descripcion TEXT,
+                FOREIGN KEY(tarea_id) REFERENCES tareas(id)
+            )
+        ''')
+        conn.commit()
+        conn.close()
+    
+            
