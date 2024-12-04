@@ -6,7 +6,6 @@ import time
 
 st.set_page_config(layout="wide")
 
-
 firebaseConfig = {
     "apiKey": "AIzaSyBUxKlDXnPSeNLKYXzsp3pUxJ8giAwSkMQ",
     "authDomain": "metadata-c090e.firebaseapp.com",
