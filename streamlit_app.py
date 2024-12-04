@@ -53,9 +53,7 @@ def mostrar_detalles_tarea(tarea_id):
     tarea = cursor.fetchone()
     conn.close()
 
-    # Mostrar los detalles de la tarea
-    st.subheader(f"Detalles de la tarea {tarea_id}")
-    # ... (mostrar los detalles de la tarea en una tabla o usando st.write)
+
 
   
 with st.expander("Asignacion de tareas"):
@@ -111,6 +109,11 @@ with st.expander("Buscar tareas"):
         df_resultados = pd.DataFrame(resultados, columns=['ID', 'Funcionario', 'Tarea', 'Prioridad', 'Fecha de Entrega', 'Estado'])
         st.table(df_resultados)
 
+with st.expander("Avances de tareas"):
+        # Obtener los avances de la tarea
+        cursor = conn.execute("SELECT * FROM avances WHERE tarea_id=?", (tarea_id,))
+        avances = cursor.fetchall()
+        df_avances = pd.DataFrame(avances, columns=['ID', 'Tarea ID', 'Fecha', 'Descripción'])
 
-  with st.expander("Avances de tareas"):
-     
+        # Mostrar la tabla de avances
+        st.table(df_avances)
