@@ -107,6 +107,7 @@ with st.expander("Eliminar tareas"):
         conn.close()
         st.success("Tarea eliminada correctamente")
         st.experimental_rerun()
+      
 def mostrar_detalles_tarea(tarea_id):
     # Obtener los detalles de la tarea
     conn = get_db_connection()
@@ -118,27 +119,26 @@ def mostrar_detalles_tarea(tarea_id):
     st.subheader(f"Detalles de la tarea {tarea_id}")
     # ... (mostrar los detalles de la tarea en una tabla o usando st.write)
 
-    # Obtener los avances de la tarea
-    cursor = conn.execute("SELECT * FROM avances WHERE tarea_id=?", (tarea_id,))
-    avances = cursor.fetchall()
-    conn.close()
+    with st.expander("Avances de tareas"):
+        # Obtener los avances de la tarea
+        cursor = conn.execute("SELECT * FROM avances WHERE tarea_id=?", (tarea_id,))
+        avances = cursor.fetchall()
+        df_avances = pd.DataFrame(avances, columns=['ID', 'Tarea ID', 'Fecha', 'Descripción'])
 
-    # Mostrar los avances en una tabla
-    df_avances = pd.DataFrame(avances, columns=['ID', 'Tarea ID', 'Fecha', 'Descripción'])
-    st.subheader("Avances")
-    st.table(df_avances)
+        # Mostrar la tabla de avances
+        st.table(df_avances)
 
-    # Formulario para registrar un nuevo avance
-    avance = st.text_area("Nuevo avance")
-    if st.button("Registrar Avance"):
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        cursor.execute("INSERT INTO avances (tarea_id, fecha_avance, descripcion) VALUES (?, ?, ?)",
-                       (tarea_id, datetime.now().strftime("%Y-%m-%d"), avance))
-        conn.commit()
-        conn.close()
-        st.success("Avance registrado correctamente")
-        st.experimental_rerun()
+        # Formulario para registrar un nuevo avance
+        avance = st.text_area("Nuevo avance")
+        if st.button("Registrar Avance"):
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            cursor.execute("INSERT INTO avances (tarea_id, fecha_avance, descripcion) VALUES (?, ?, ?)",
+                           (tarea_id, datetime.now().strftime("%Y-%m-%d"), avance))
+            conn.commit()
+            conn.close()
+            st.success("Avance registrado correctamente")
+            st.experimental_rerun()
 
 # Seleccionar una tarea para ver los detalles
 tarea_id_seleccionada = st.number_input("Selecciona el ID de una tarea", min_value=1)
