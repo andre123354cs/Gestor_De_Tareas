@@ -4,6 +4,9 @@ import pandas as pd
 import pyrebase
 import time
 
+st.set_page_config(layout="wide")
+
+
 firebaseConfig = {
     "apiKey": "AIzaSyBUxKlDXnPSeNLKYXzsp3pUxJ8giAwSkMQ",
     "authDomain": "metadata-c090e.firebaseapp.com",
@@ -153,7 +156,6 @@ if __name__ == "__main__":
 
 
 # Configuración de la página para modo ancho
-st.set_page_config(layout="wide")
 
 st.markdown("""
 <div style="display: flex; justify-content: space-between; align-items: center;">
