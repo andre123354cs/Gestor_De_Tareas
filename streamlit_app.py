@@ -84,21 +84,7 @@ df_filtrado = df[df['Estado'] == estado_filtro]
 
 # Mostrar la tabla filtrada
 st.subheader("Tareas")
-df_filtrado['Estado'] = df_filtrado['Estado'].astype('str')
-#edited_df = st.data_editor(df_filtrado, column_config={'ID': st.column_config.ColumnConfig(disabled=True)})  # Deshabilitar edición de ID
 
-# Botón para confirmar los cambios
-if st.button("Actualizar estados"):
-    for index, row in edited_df.iterrows():
-        if row['Estado'] not in estados:
-            st.error(f"Estado inválido para la tarea {row['ID']}")
-        else:
-            conn = get_db_connection()
-            cursor = conn.cursor()
-            cursor.execute("UPDATE tareas SET estado = ? WHERE id = ?", (row['Estado'], row['ID']))
-            conn.commit()
-            conn.close()
-            st.success(f"Estado de la tarea {row['ID']} actualizado correctamente")
 
 
 
