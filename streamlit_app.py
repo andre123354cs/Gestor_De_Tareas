@@ -98,7 +98,7 @@ with st.expander("Buscar tareas"):
         df_resultados = pd.DataFrame(resultados, columns=['ID', 'Funcionario', 'Tarea', 'Prioridad', 'Fecha de Entrega', 'Estado'])
         st.table(df_resultados)
       
-with st.expander("Eliminar tareas"):
+"with st.expander("Eliminar tareas"):
     task_id = st.number_input("Ingrese el ID de la tarea a eliminar", min_value=1)
     if st.button("Eliminar tarea"):
         conn = get_db_connection()
@@ -107,5 +107,5 @@ with st.expander("Eliminar tareas"):
         conn.commit()
         conn.close()
         st.success("Tarea eliminada correctamente")
-        st.experimental_rerun()
+        st.experimental_rerun()"
       
