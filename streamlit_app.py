@@ -101,3 +101,14 @@ with st.expander("Buscar tareas"):
         st.table(df_resultados)
 
 
+with st.expander("Eliminar tareas"):
+    task_id = st.number_input("Ingrese el ID de la tarea a eliminar", min_value=1)
+    if st.button("Eliminar tarea"):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM tareas WHERE id = ?", (task_id,))
+        conn.commit()
+        conn.close()
+        st.success("Tarea eliminada correctamente")
+        st.experimental_rerun()  
+
