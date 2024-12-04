@@ -2,7 +2,6 @@ import streamlit as st
 import sqlite3
 import pandas as pd
 import pyrebase
-from app import interfaz
 import time
 
 firebaseConfig = {
