@@ -157,13 +157,7 @@ if __name__ == "__main__":
 
 # Configuración de la página para modo ancho
 
-st.markdown("""
-<div style="display: flex; justify-content: space-between; align-items: center;">
-  <img src="https://cdn-icons-png.flaticon.com/128/5110/5110088.png" alt="New Left Logo" width="100" height="100">
-  <h1 style='color: #0f0a68; font-size: 30px;'> ProductivApp YesBPO</h1>
-  <img src="https://cdn-icons-png.flaticon.com/128/8637/8637660.png" alt="New Right Logo" width="100" height="100">
-</div>
-""", unsafe_allow_html=True)
+
 
 # Función para conectar a la base de datos
 def get_db_connection():
@@ -187,16 +181,25 @@ def create_table():
     conn.commit()
     conn.close()
 
-funcionarios_permitidos = ["Alisson Garcia", "Andres Vanegas", "Andres Diaz", "Felipe Rodriguez", "Maicol Yepes"]
-
-# Opciones para el estado de la tarea
-estados = ['Activa', 'Terminada']
-
-# Crear la tabla si no existe
-create_table()
 
 
-def interfaz():  
+
+def interfaz(): 
+    st.markdown("""
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <img src="https://cdn-icons-png.flaticon.com/128/5110/5110088.png" alt="New Left Logo" width="100" height="100">
+  <h1 style='color: #0f0a68; font-size: 30px;'> ProductivApp YesBPO</h1>
+  <img src="https://cdn-icons-png.flaticon.com/128/8637/8637660.png" alt="New Right Logo" width="100" height="100">
+</div>
+""", unsafe_allow_html=True)
+    funcionarios_permitidos = ["Alisson Garcia", "Andres Vanegas", "Andres Diaz", "Felipe Rodriguez", "Maicol Yepes"]
+
+    # Opciones para el estado de la tarea
+    estados = ['Activa', 'Terminada']
+    
+    # Crear la tabla si no existe
+    create_table()
+    
     with st.expander("Asignacion de tareas"):
       with st.form("my_form"):
         funcionario = st.selectbox("Funcionario", funcionarios_permitidos)
