@@ -40,7 +40,7 @@ def create_table():
 funcionarios_permitidos = ["Alisson Garcia", "Andres Vanegas", "Andres Diaz", "Felipe Rodriguez", "Maicol Yepes"]
 
 # Opciones para el estado de la tarea
-estados = ['Activa', 'Terminada', 'Vencida']
+estados = ['Activa', 'Terminada']
 
 # Crear la tabla si no existe
 create_table()
