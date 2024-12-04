@@ -9,9 +9,10 @@ st.set_page_config(layout="wide")
 
 st.markdown("""
 <div style="display: flex; justify-content: space-between; align-items: center;">
-  <img src="https://cdn-icons-png.flaticon.com/128/6429/6429114.png" alt="RRHH YesBpo Logo" width="100" height="100">
+  <img src="https://cdn-icons-png.flaticon.com/128/5110/5110088.png" alt="New Left Logo" width="100" height="100">
   <h1 style='color: #0f0a68; font-size: 20px;'> ProductivaApp </h1>
-  <img src="https://cdn-icons-png.flaticon.com/128/8637/8637660.png" alt="New Right Logo" width="100" height="100">  </div>
+  <img src="https://cdn-icons-png.flaticon.com/128/8637/8637660.png" alt="New Right Logo" width="100" height="100">
+</div>
 """, unsafe_allow_html=True)
 
 # Función para conectar a la base de datos
