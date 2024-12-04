@@ -7,6 +7,7 @@ def get_db_connection():
     conn = sqlite3.connect('tareas.db')
     return conn
 
+# Crear la tabla de tareas si no existe
 def create_table():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -22,12 +23,15 @@ def create_table():
     ''')
     conn.commit()
     conn.close()
-    
+
 # Título de la aplicación
 st.title("Gestor de Tareas Personalizado")
 
 # Opciones para el estado de la tarea
 estados = ['Activa', 'Terminada', 'Vencida']
+
+# Crear la tabla si no existe
+create_table()
 
 # Formulario para agregar una nueva tarea
 with st.form("my_form"):
@@ -40,11 +44,15 @@ with st.form("my_form"):
     if submitted:
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO tareas (funcionario, tarea, prioridad, fecha_entrega, estado) VALUES (?, ?, ?, ?, ?)",
-                       (funcionario, tarea, prioridad, fecha_entrega, estado))
-        conn.commit()
-        conn.close()
-        st.success("Tarea agregada correctamente")
+        try:
+            cursor.execute("INSERT INTO tareas (funcionario, tarea, prioridad, fecha_entrega, estado) VALUES (?, ?, ?, ?, ?)",
+                           (funcionario, tarea, prioridad, fecha_entrega, estado))
+            conn.commit()
+            st.success("Tarea agregada correctamente")
+        except sqlite3.Error as e:
+            st.error(f"Error al agregar la tarea: {e}")
+        finally:
+            conn.close()
 
 # Mostrar todas las tareas
 conn = get_db_connection()
