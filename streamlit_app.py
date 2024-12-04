@@ -101,3 +101,16 @@ with st.expander("Buscar tareas"):
         df_resultados = pd.DataFrame(resultados, columns=['ID', 'Funcionario', 'Tarea', 'Prioridad', 'Fecha de Entrega', 'Estado'])
         st.table(df_resultados)
 
+def actualizar_estado(tarea_id, nuevo_estado):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE tareas SET estado = ? WHERE id = ?", (nuevo_estado, tarea_id))
+    conn.commit()
+    conn.close()
+    st.success("Estado actualizado correctamente")
+
+with st.expander("Modificar Estado de Tareas"):
+    tarea_id = st.number_input("Ingrese el ID de la tarea", min_value=1)
+    nuevo_estado = st.selectbox("Nuevo estado", estados)
+    if st.button("Actualizar Estado"):
+        actualizar_estado(tarea_id, nuevo_estado)
