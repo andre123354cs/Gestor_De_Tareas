@@ -71,7 +71,7 @@ df = pd.DataFrame(tareas, columns=['ID', 'Funcionario', 'Tarea', 'Prioridad', 'F
 
 # Mostrar el DataFrame en Streamlit
 st.subheader("Todas las tareas")
-st.table(df)
+st.table(df, hide_index=True, use_container_width=True)
 
 # Buscar tareas
 with st.expander("Buscar tareas"):
