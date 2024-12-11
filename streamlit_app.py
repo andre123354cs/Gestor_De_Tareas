@@ -24,7 +24,7 @@ st.markdown("""
     .subtitulo {
         text-align: left;
         color: #0f0a68;
-        font-size: 15px;
+        font-size: 10px;
     }
     .logo {
         order: 2;
