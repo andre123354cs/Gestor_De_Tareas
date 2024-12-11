@@ -10,14 +10,41 @@ st.set_page_config(
 )
 
 st.markdown("""
-  <div style="display: flex; justify-content: Center; align-items: Center;">
-    <h1 style='color: #0f0a68; font-size: 29px; flex-grow: 1; text-align: center;'> ProductiApp</h1>
-    <img src="https://cdn-icons-png.flaticon.com/128/2118/2118460.png" alt="RRHH YesBpo Logo" width="100" height="100" style="order: 2;">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+    body {
+        font-family: 'Lato', sans-serif;
+    }
+    .titulo {
+        color: #0f0a68;
+        font-size: 29px;
+        text-align: center;
+        flex-grow: 1;
+    }
+    .subtitulo {
+        text-align: left;
+        color: #0f0a68;
+        font-size: 15px;
+    }
+    .logo {
+        order: 2;
+        width: 100px;
+        height: 100px;
+    }
+  </style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+  <div style="display: flex; justify-content: center; align-items: center;">
+    <h1 class='titulo'>ProductiApp</h1>
+    <img src="https://cdn-icons-png.flaticon.com/128/2118/2118460.png" alt="RRHH YesBpo Logo" class="logo">
   </div>
 """, unsafe_allow_html=True)
 
 st.markdown("""
-    <h1 style='text-align: left; color: #0f0a68; font-size: 15px;'> Bienvenido a ProductiApp, la herramienta definitiva para la supervisión y gestión de tareas. Simplifica tu día a día, mantén el control sobre tus proyectos y colabora eficientemente con tu equipo. Con ProductiApp, monitorear el progreso nunca fue tan fácil. ¡Empieza a transformar tu productividad hoy!</h1>
+  <h1 class='subtitulo'>Bienvenido a ProductiApp, la herramienta definitiva para la supervisión y gestión de tareas. 
+  Simplifica tu día a día, mantén el control sobre tus proyectos y colabora eficientemente con tu equipo. 
+  Con ProductiApp, monitorear el progreso nunca fue tan fácil. ¡Empieza a transformar tu productividad hoy!</h1>
 """, unsafe_allow_html=True)
 
 #https://docs.google.com/spreadsheets/d/1RbnK8K17h7ttYIDlg9FHtIhkyK8RvrSBqWEeeoMXt68/edit?gid=0#gid=0
