@@ -9,15 +9,40 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
+# Agregar un fondo utilizando CSS
 st.markdown("""
-  <div style="display: flex; justify-content: Center; align-items: Center;">
-    <img src="https://cdn-icons-png.flaticon.com/128/2118/2118460.png" alt="RRHH YesBpo Logo" width="100" height="100">
-    <h1 style='color: #0f0a68; font-size: 29px;'> ProductiApp</h1>
+    <style>
+    body {
+        background-image: url('https://es.pngtree.com/freebackground/futuristic-workspace-for-teamwork-and-productivity_16069172.html');
+        background-size: cover;
+    }
+    .titulo {
+        color: #000000;  /* Negro muy oscuro */
+        font-size: 29px;
+        text-align: center;
+    }
+    .subtitulo {
+        text-align: left;
+        color: #000000;  /* Negro muy oscuro */
+        font-size: 15px;
+    }
+    .logo {
+        order: 2;
+        width: 100px;
+        height: 100px;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+  <div style="display: flex; justify-content: center; align-items: center;">
+    <h1 class='titulo'>ProductiApp</h1>
+    <img src="https://cdn-icons-png.flaticon.com/128/2118/2118460.png" alt="RRHH YesBpo Logo" class="logo">
   </div>
 """, unsafe_allow_html=True)
 
 st.markdown("""
-  <h1 style='text-align: left; color: #0f0a68; font-size: 15px;'> 
+  <h1 class='subtitulo'> 
     Bienvenido a ProductiApp, la herramienta definitiva para la supervisión y gestión de tareas. 
     Simplifica tu día a día, mantén el control sobre tus proyectos y colabora eficientemente con tu equipo. 
     Con ProductiApp, monitorear el progreso nunca fue tan fácil. ¡Empieza a transformar tu productividad hoy!
@@ -108,6 +133,6 @@ st.plotly_chart(fig_prioridad, use_container_width=True)
 # Añadir reseña al final de la interfaz
 st.markdown("""
   <div style="margin-top: 50px; text-align: center;">
-    <p>Creado por Andrés Banegas, Coordinador de Inteligencia, que trabaja para la empresa Yes BPO.</p>
+    <p>Creado por Andrés Vanegas, Coordinador de Inteligencia, que trabaja para la empresa Yes BPO.</p>
   </div>
 """, unsafe_allow_html=True)
