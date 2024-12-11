@@ -28,8 +28,7 @@ url = f'https://docs.google.com/spreadsheets/d/{gsheetid}/export?format=csv&gid=
 
 df= pd.read_csv(url)
 
-st.dataframe(df, use_container_width=True)
-    
+
     
     
     
@@ -40,3 +39,15 @@ estados_unicos = df['estado de la tarea'].unique()
 funcionarios_unicos = df['funcionario'].unique()
 
 novedad_seleccionada = st.multiselect('Selecciona Estados', estados_unicos)
+funcionario_seleccionada = st.multiselect('Selecciona Funcionario', funcionarios_unicos)
+
+
+
+
+
+
+
+
+
+st.dataframe(df, use_container_width=True)
+    
