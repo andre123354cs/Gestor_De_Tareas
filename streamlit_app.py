@@ -10,44 +10,14 @@ st.set_page_config(
 )
 
 st.markdown("""
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
-    body {
-        font-family: 'Lato', sans-serif;
-        font-size: 12px;
-    }
-    .titulo {
-        color: #0f0a68;
-        font-size: 29px;
-        text-align: center;
-        flex-grow: 1;
-    }
-    .subtitulo {
-        text-align: left;
-        color: #0f0a68;
-        font-size: 15px;
-    }
-    .selector-titulo {
-        font-size: 20px;
-        font-weight: bold;
-    }
-    .logo {
-        order: 2;
-        width: 100px;
-        height: 100px;
-    }
-  </style>
-""", unsafe_allow_html=True)
-
-st.markdown("""
   <div style="display: flex; justify-content: center; align-items: center;">
-    <h1 class='titulo'>ProductiApp</h1>
-    <img src="https://cdn-icons-png.flaticon.com/128/2118/2118460.png" alt="RRHH YesBpo Logo" class="logo">
+    <h1 style='color: #0f0a68; font-size: 29px; text-align: center; flex-grow: 1;'>ProductiApp</h1>
+    <img src="https://cdn-icons-png.flaticon.com/128/2118/2118460.png" alt="RRHH YesBpo Logo" style="order: 2; width: 100px; height: 100px;">
   </div>
 """, unsafe_allow_html=True)
 
 st.markdown("""
-  <h1 class='subtitulo'>Bienvenido a ProductiApp, la herramienta definitiva para la supervisión y gestión de tareas. 
+  <h1 style='text-align: left; color: #0f0a68; font-size: 15px;'>Bienvenido a ProductiApp, la herramienta definitiva para la supervisión y gestión de tareas. 
   Simplifica tu día a día, mantén el control sobre tus proyectos y colabora eficientemente con tu equipo. 
   Con ProductiApp, monitorear el progreso nunca fue tan fácil. ¡Empieza a transformar tu productividad hoy!</h1>
 """, unsafe_allow_html=True)
@@ -65,10 +35,10 @@ estados_unicos = df['estado de la tarea'].unique()
 # Filtrar por funcionario y obtener los valores únicos
 funcionarios_unicos = df['funcionario'].unique()
 
-st.markdown("<div class='selector-titulo'>Selecciona Estados</div>", unsafe_allow_html=True)
+st.markdown("### Selecciona Estados")
 novedad_seleccionada = st.multiselect('', estados_unicos)
 
-st.markdown("<div class='selector-titulo'>Selecciona Funcionario</div>", unsafe_allow_html=True)
+st.markdown("### Selecciona Funcionario")
 funcionario_seleccionada = st.multiselect('', funcionarios_unicos)
 
 # Filtrar el DataFrame según las selecciones
