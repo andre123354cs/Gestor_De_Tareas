@@ -10,7 +10,7 @@ st.set_page_config(
 )
 
 # URL de tu imagen de fondo
-background_url = 'URL_DE_TU_IMAGEN_DE_FONDO'
+background_url = 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pxfuel.com%2Fen%2Fquery%3Fq%3Dfondos%2Bde%2Bpantalla%2Bmar&psig=AOvVaw0RZbxiw7bQmKPNkKeoY8rV&ust=1733974285833000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCKibot7jnooDFQAAAAAdAAAAABAJ'
 
 st.markdown(f"""
     <style>
