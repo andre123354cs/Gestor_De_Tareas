@@ -11,24 +11,15 @@ st.set_page_config(
 
 st.markdown("""
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
     body {
-        font-family: 'Lato', sans-serif;
-        font-size: 12px;
+        font-size: 14px;
+    }
+    h1, h2, h3, h4, h5, h6, .selector-titulo {
+        font-size: 14px;
     }
     .titulo {
-        font-size: 29px;
-        color: #0f0a68;
         text-align: center;
-    }
-    .subtitulo {
-        font-size: 15px;
-        color: #0f0a68;
-        text-align: left;
-    }
-    .selector-titulo {
-        font-size: 20px;
-        font-weight: bold;
+        flex-grow: 1;
     }
     .logo {
         order: 2;
@@ -46,7 +37,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown("""
-  <h1 class='subtitulo'>Bienvenido a ProductiApp, la herramienta definitiva para la supervisión y gestión de tareas. 
+  <h1 class='titulo'>Bienvenido a ProductiApp, la herramienta definitiva para la supervisión y gestión de tareas. 
   Simplifica tu día a día, mantén el control sobre tus proyectos y colabora eficientemente con tu equipo. 
   Con ProductiApp, monitorear el progreso nunca fue tan fácil. ¡Empieza a transformar tu productividad hoy!</h1>
 """, unsafe_allow_html=True)
@@ -134,7 +125,7 @@ st.plotly_chart(fig_prioridad, use_container_width=True)
 
 # Añadir reseña al final de la interfaz
 st.markdown("""
-  <div style="margin-top: 10px; text-align: center;">
+  <div style="margin-top: 50px; text-align: center;">
     <p>Creado por Andrés Banegas, Coordinador de Inteligencia, que trabaja para la empresa Yes BPO.</p>
   </div>
 """, unsafe_allow_html=True)
