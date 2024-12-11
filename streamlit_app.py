@@ -31,6 +31,9 @@ url = f'https://docs.google.com/spreadsheets/d/{gsheetid}/export?format=csv&gid=
 
 df = pd.read_csv(url)
 
+# Remover la primera columna (consecutivo)
+df = df.iloc[:, 1:]
+
 # Obtener los valores únicos de la columna 'estado de la tarea'
 estados_unicos = df['estado de la tarea'].unique()
 
@@ -108,6 +111,6 @@ st.plotly_chart(fig_prioridad, use_container_width=True)
 # Añadir reseña al final de la interfaz
 st.markdown("""
   <div style="margin-top: 50px; text-align: center;">
-    <p>Creado por YesBpo Coordinación de Inteligencia.</p>
+    <p>Creado por Jesview Coordinación de Inteligencia.</p>
   </div>
 """, unsafe_allow_html=True)
