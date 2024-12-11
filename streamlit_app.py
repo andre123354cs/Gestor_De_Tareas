@@ -48,26 +48,26 @@ if funcionario_seleccionada:
 # Mostrar el DataFrame filtrado
 st.dataframe(df_filtrado, use_container_width=True)
 
-# Primera gráfica: Tareas activas e inactivas por funcionario
-df_agrupado_estado = df_filtrado.groupby(['funcionario', 'estado de la tarea']).size().reset_index(name='conteo')
+# Primera gráfica ajustada: Tareas activas e inactivas por funcionario
+df_agrupado_estado = df_filtrado.groupby(['estado de la tarea', 'funcionario']).size().reset_index(name='conteo')
 
 fig_estado = go.Figure()
 
-for estado in df_agrupado_estado['estado de la tarea'].unique():
-    df_estado = df_agrupado_estado[df_agrupado_estado['estado de la tarea'] == estado]
+for funcionario in df_agrupado_estado['funcionario'].unique():
+    df_funcionario = df_agrupado_estado[df_agrupado_estado['funcionario'] == funcionario]
     fig_estado.add_trace(go.Bar(
-        x=df_estado['funcionario'],
-        y=df_estado['conteo'],
-        name=estado,
-        text=df_estado['conteo'],
+        x=df_funcionario['estado de la tarea'],
+        y=df_funcionario['conteo'],
+        name=funcionario,
+        text=df_funcionario['conteo'],
         textposition='auto'
     ))
 
 fig_estado.update_layout(
     title='Cantidad de Tareas Activas e Inactivas por Funcionario',
-    xaxis_title='Funcionario',
+    xaxis_title='Estado de la Tarea',
     yaxis_title='Cantidad de Tareas',
-    barmode='group',
+    barmode='stack',
     height=400
 )
 
