@@ -48,9 +48,13 @@ if funcionario_seleccionada:
 # Mostrar el DataFrame filtrado
 st.dataframe(df_filtrado, use_container_width=True)
 
-# Crear gráfico de barras para visualizar las tareas por funcionario
-fig = px.bar(df_filtrado, x='funcionario', y='tarea', color='estado de la tarea', 
-             title='Tareas por Funcionario', labels={'tarea':'Cantidad de Tareas'}, 
+# Agrupar los datos por funcionario y estado de la tarea
+df_agrupado = df_filtrado.groupby(['funcionario', 'estado de la tarea']).size().reset_index(name='conteo')
+
+# Crear gráfico de barras para visualizar las tareas activas e inactivas por funcionario
+fig = px.bar(df_agrupado, x='funcionario', y='conteo', color='estado de la tarea', 
+             title='Cantidad de Tareas Activas e Inactivas por Funcionario', 
+             labels={'conteo': 'Cantidad de Tareas', 'funcionario': 'Funcionario'}, 
              barmode='group', height=400)
 
 st.plotly_chart(fig, use_container_width=True)
