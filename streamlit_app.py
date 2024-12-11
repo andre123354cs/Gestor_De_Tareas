@@ -132,6 +132,6 @@ st.plotly_chart(fig_fecha, use_container_width=True)
 # Añadir reseña al final de la interfaz
 st.markdown("""
   <div style="margin-top: 50px; text-align: center;">
-    <p>Creado por Jesview Coordinación de Inteligencia.</p>
+    <p>Creado por YesBpo Coordinación de Inteligencia.</p>
   </div>
 """, unsafe_allow_html=True)
