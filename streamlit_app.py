@@ -108,6 +108,6 @@ st.plotly_chart(fig_prioridad, use_container_width=True)
 # Añadir reseña al final de la interfaz
 st.markdown("""
   <div style="margin-top: 50px; text-align: center;">
-    <p>Creado por Andrés Vanegas, Coordinador de Inteligencia, que trabaja para la empresa Yes BPO.</p>
+    <p>Creado por YesBpo Coordinación de Inteligencia.</p>
   </div>
 """, unsafe_allow_html=True)
