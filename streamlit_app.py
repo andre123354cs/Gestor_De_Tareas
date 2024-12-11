@@ -9,34 +9,36 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Agregar un fondo utilizando CSS
-st.markdown("""
+# URL de tu imagen de fondo
+background_url = 'URL_DE_TU_IMAGEN_DE_FONDO'
+
+st.markdown(f"""
     <style>
-    body {
-        background-image: url('https://es.pngtree.com/freebackground/futuristic-workspace-for-teamwork-and-productivity_16069172.html');
+    body {{
+        background-image: url('{background_url}');
         background-size: cover;
-    }
-    .titulo {
+    }}
+    .titulo {{
         color: #000000;  /* Negro muy oscuro */
         font-size: 29px;
         text-align: center;
-    }
-    .subtitulo {
+    }}
+    .subtitulo {{
         text-align: left;
         color: #000000;  /* Negro muy oscuro */
         font-size: 15px;
-    }
-    .logo {
+    }}
+    .logo {{
         order: 2;
         width: 100px;
         height: 100px;
-    }
+    }}
     </style>
 """, unsafe_allow_html=True)
 
 st.markdown("""
-  <div style="display: flex; justify-content: center; align-items: center;">
-    <h1 class='titulo'>ProductiApp</h1>
+  <div style="display: flex; justify-content: Center; align-items: Center;">
+    <h1 class='titulo'> ProductiApp</h1>
     <img src="https://cdn-icons-png.flaticon.com/128/2118/2118460.png" alt="RRHH YesBpo Logo" class="logo">
   </div>
 """, unsafe_allow_html=True)
