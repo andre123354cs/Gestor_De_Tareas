@@ -25,7 +25,11 @@ st.markdown("""
     .subtitulo {
         text-align: left;
         color: #0f0a68;
-        font-size: 12px;
+        font-size: 15px;
+    }
+    .selector-titulo {
+        font-size: 20px;
+        font-weight: bold;
     }
     .logo {
         order: 2;
@@ -61,8 +65,11 @@ estados_unicos = df['estado de la tarea'].unique()
 # Filtrar por funcionario y obtener los valores únicos
 funcionarios_unicos = df['funcionario'].unique()
 
-novedad_seleccionada = st.multiselect('Selecciona Estados', estados_unicos)
-funcionario_seleccionada = st.multiselect('Selecciona Funcionario', funcionarios_unicos)
+st.markdown("<div class='selector-titulo'>Selecciona Estados</div>", unsafe_allow_html=True)
+novedad_seleccionada = st.multiselect('', estados_unicos)
+
+st.markdown("<div class='selector-titulo'>Selecciona Funcionario</div>", unsafe_allow_html=True)
+funcionario_seleccionada = st.multiselect('', funcionarios_unicos)
 
 # Filtrar el DataFrame según las selecciones
 df_filtrado = df.copy()
