@@ -9,25 +9,6 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-st.markdown("""
-  <style>
-    body {
-        font-size: 14px;
-    }
-    h1, h2, h3, h4, h5, h6, .selector-titulo {
-        font-size: 14px;
-    }
-    .titulo {
-        text-align: center;
-        flex-grow: 1;
-    }
-    .logo {
-        order: 2;
-        width: 100px;
-        height: 100px;
-    }
-  </style>
-""", unsafe_allow_html=True)
 
 st.markdown("""
   <div style="display: flex; justify-content: center; align-items: center;">
