@@ -7,7 +7,7 @@ st.set_page_config(
     page_icon=":chart_with_upwards_trend:",
     layout="wide",
     initial_sidebar_state="collapsed"
-    )
+)
 
 st.markdown("""
   <div style="display: flex; justify-content: Center; align-items: Center;">
@@ -15,14 +15,14 @@ st.markdown("""
     <h1 style='color: #0f0a68; font-size: 29px;'> ProductiApp</h1>
   </div>
 """, unsafe_allow_html=True)
-    
+
 st.markdown("""
     <h1 style='text-align: left; color: #0f0a68; font-size: 15px;'> Bienvenido a ProductiApp, la herramienta definitiva para la supervisión y gestión de tareas. Simplifica tu día a día, mantén el control sobre tus proyectos y colabora eficientemente con tu equipo. Con ProductiApp, monitorear el progreso nunca fue tan fácil. ¡Empieza a transformar tu productividad hoy!</h1>
-    """, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 #https://docs.google.com/spreadsheets/d/1RbnK8K17h7ttYIDlg9FHtIhkyK8RvrSBqWEeeoMXt68/edit?gid=0#gid=0
-gsheetid='1RbnK8K17h7ttYIDlg9FHtIhkyK8RvrSBqWEeeoMXt68'
-sheetod='0'
+gsheetid = '1RbnK8K17h7ttYIDlg9FHtIhkyK8RvrSBqWEeeoMXt68'
+sheetod = '0'
 url = f'https://docs.google.com/spreadsheets/d/{gsheetid}/export?format=csv&gid={sheetod}&format'
 
 df = pd.read_csv(url)
@@ -48,28 +48,52 @@ if funcionario_seleccionada:
 # Mostrar el DataFrame filtrado
 st.dataframe(df_filtrado, use_container_width=True)
 
-# Agrupar los datos por funcionario y prioridad de la tarea
-df_agrupado = df_filtrado.groupby(['funcionario', 'prioridad de la tarea']).size().reset_index(name='conteo')
+# Primera gráfica: Tareas activas e inactivas por funcionario
+df_agrupado_estado = df_filtrado.groupby(['funcionario', 'estado de la tarea']).size().reset_index(name='conteo')
 
-# Crear gráfico de barras para visualizar las prioridades de tareas por funcionario
-fig = go.Figure()
+fig_estado = go.Figure()
 
-for prioridad in df_agrupado['prioridad de la tarea'].unique():
-    df_prioridad = df_agrupado[df_agrupado['prioridad de la tarea'] == prioridad]
-    fig.add_trace(go.Bar(
-        x=df_prioridad['funcionario'],
-        y=df_prioridad['conteo'],
-        name=prioridad,
-        text=df_prioridad['conteo'],
+for estado in df_agrupado_estado['estado de la tarea'].unique():
+    df_estado = df_agrupado_estado[df_agrupado_estado['estado de la tarea'] == estado]
+    fig_estado.add_trace(go.Bar(
+        x=df_estado['funcionario'],
+        y=df_estado['conteo'],
+        name=estado,
+        text=df_estado['conteo'],
         textposition='auto'
     ))
 
-fig.update_layout(
-    title='Prioridad de Tareas por Funcionario',
+fig_estado.update_layout(
+    title='Cantidad de Tareas Activas e Inactivas por Funcionario',
     xaxis_title='Funcionario',
     yaxis_title='Cantidad de Tareas',
     barmode='group',
     height=400
 )
 
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig_estado, use_container_width=True)
+
+# Segunda gráfica: Prioridad de tareas por funcionario
+df_agrupado_prioridad = df_filtrado.groupby(['prioridad de la tarea', 'funcionario']).size().reset_index(name='conteo')
+
+fig_prioridad = go.Figure()
+
+for funcionario in df_agrupado_prioridad['funcionario'].unique():
+    df_funcionario = df_agrupado_prioridad[df_agrupado_prioridad['funcionario'] == funcionario]
+    fig_prioridad.add_trace(go.Bar(
+        x=df_funcionario['prioridad de la tarea'],
+        y=df_funcionario['conteo'],
+        name=funcionario,
+        text=df_funcionario['conteo'],
+        textposition='auto'
+    ))
+
+fig_prioridad.update_layout(
+    title='Prioridad de Tareas por Funcionario',
+    xaxis_title='Prioridad de la Tarea',
+    yaxis_title='Cantidad de Tareas',
+    barmode='stack',
+    height=400
+)
+
+st.plotly_chart(fig_prioridad, use_container_width=True)
