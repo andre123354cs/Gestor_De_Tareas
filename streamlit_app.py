@@ -39,29 +39,3 @@ estados_unicos = df['estado de la tarea'].unique()
 # Filtrar por funcionario y obtener los valores únicos
 funcionarios_unicos = df['funcionario'].unique()
 
-estado_selector = widgets.Dropdown(
-    options=estados_unicos,
-    description='Estado de la Tarea:',
-    disabled=False,
-)
-
-funcionario_selector = widgets.Dropdown(
-    options=funcionarios_unicos,
-    description='Funcionario:',
-    disabled=False,
-)
-
-# Función para filtrar los datos según las selecciones
-def filtrar_datos(estado, funcionario):
-    filtro = df[(df['estado_tarea'] == estado) & (df['funcionario'] == funcionario)]
-    return filtro
-
-# Mostrar widgets
-display(estado_selector, funcionario_selector)
-
-# Filtrar datos cuando se cambia una selección
-def actualizar_filtro(change):
-    estado = estado_selector.value
-    funcionario = funcionario_selector.value
-    datos_filtrados = filtrar_datos(estado, funcionario)
-    print(datos_filtrados)
