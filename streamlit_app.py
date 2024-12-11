@@ -14,17 +14,18 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
     body {
         font-family: 'Lato', sans-serif;
+        font-size: 12px;
     }
     .titulo {
         color: #0f0a68;
-        font-size: 20px;
+        font-size: 29px;
         text-align: center;
         flex-grow: 1;
     }
     .subtitulo {
         text-align: left;
         color: #0f0a68;
-        font-size: 10px;
+        font-size: 12px;
     }
     .logo {
         order: 2;
