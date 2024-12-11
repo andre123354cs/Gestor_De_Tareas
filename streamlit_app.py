@@ -42,6 +42,17 @@ novedad_seleccionada = st.multiselect('Selecciona Estados', estados_unicos)
 funcionario_seleccionada = st.multiselect('Selecciona Funcionario', funcionarios_unicos)
 
 
+# Filtrar el DataFrame según las selecciones
+df_filtrado = df.copy()
+
+if novedad_seleccionada:
+    df_filtrado = df_filtrado[df_filtrado['estado de la tarea'].isin(novedad_seleccionada)]
+
+if funcionario_seleccionada:
+    df_filtrado = df_filtrado[df_filtrado['funcionario'].isin(funcionario_seleccionada)]
+
+# Mostrar el DataFrame filtrado
+st.dataframe(df_filtrado, use_container_width=True)
 
 
 
@@ -49,5 +60,4 @@ funcionario_seleccionada = st.multiselect('Selecciona Funcionario', funcionarios
 
 
 
-st.dataframe(df, use_container_width=True)
     
