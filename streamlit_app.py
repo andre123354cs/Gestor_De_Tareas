@@ -17,7 +17,7 @@ st.markdown("""
     }
     .titulo {
         color: #0f0a68;
-        font-size: 29px;
+        font-size: 20px;
         text-align: center;
         flex-grow: 1;
     }
