@@ -9,18 +9,19 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-
 st.markdown("""
-  <div style="display: flex; justify-content: center; align-items: center;">
-    <h1 class='titulo'>ProductiApp</h1>
-    <img src="https://cdn-icons-png.flaticon.com/128/2118/2118460.png" alt="RRHH YesBpo Logo" class="logo">
+  <div style="display: flex; justify-content: Center; align-items: Center;">
+    <img src="https://cdn-icons-png.flaticon.com/128/2118/2118460.png" alt="RRHH YesBpo Logo" width="100" height="100">
+    <h1 style='color: #0f0a68; font-size: 29px;'> ProductiApp</h1>
   </div>
 """, unsafe_allow_html=True)
 
 st.markdown("""
-  <h1 class='titulo'>Bienvenido a ProductiApp, la herramienta definitiva para la supervisión y gestión de tareas. 
-  Simplifica tu día a día, mantén el control sobre tus proyectos y colabora eficientemente con tu equipo. 
-  Con ProductiApp, monitorear el progreso nunca fue tan fácil. ¡Empieza a transformar tu productividad hoy!</h1>
+  <h1 style='text-align: left; color: #0f0a68; font-size: 15px;'> 
+    Bienvenido a ProductiApp, la herramienta definitiva para la supervisión y gestión de tareas. 
+    Simplifica tu día a día, mantén el control sobre tus proyectos y colabora eficientemente con tu equipo. 
+    Con ProductiApp, monitorear el progreso nunca fue tan fácil. ¡Empieza a transformar tu productividad hoy!
+  </h1>
 """, unsafe_allow_html=True)
 
 #https://docs.google.com/spreadsheets/d/1RbnK8K17h7ttYIDlg9FHtIhkyK8RvrSBqWEeeoMXt68/edit?gid=0#gid=0
@@ -36,10 +37,10 @@ estados_unicos = df['estado de la tarea'].unique()
 # Filtrar por funcionario y obtener los valores únicos
 funcionarios_unicos = df['funcionario'].unique()
 
-st.markdown("<div class='selector-titulo'>Selecciona Estados</div>", unsafe_allow_html=True)
+st.markdown("### Selecciona Estados")
 novedad_seleccionada = st.multiselect('', estados_unicos)
 
-st.markdown("<div class='selector-titulo'>Selecciona Funcionario</div>", unsafe_allow_html=True)
+st.markdown("### Selecciona Funcionario")
 funcionario_seleccionada = st.multiselect('', funcionarios_unicos)
 
 # Filtrar el DataFrame según las selecciones
