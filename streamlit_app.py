@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import plotly.express as px
 import plotly.graph_objects as go
 
 st.set_page_config(
@@ -49,24 +48,24 @@ if funcionario_seleccionada:
 # Mostrar el DataFrame filtrado
 st.dataframe(df_filtrado, use_container_width=True)
 
-# Agrupar los datos por funcionario y estado de la tarea
-df_agrupado = df_filtrado.groupby(['funcionario', 'estado de la tarea']).size().reset_index(name='conteo')
+# Agrupar los datos por funcionario y prioridad de la tarea
+df_agrupado = df_filtrado.groupby(['funcionario', 'prioridad de la tarea']).size().reset_index(name='conteo')
 
-# Crear gráfico de barras para visualizar las tareas activas e inactivas por funcionario
+# Crear gráfico de barras para visualizar las prioridades de tareas por funcionario
 fig = go.Figure()
 
-for estado in df_agrupado['estado de la tarea'].unique():
-    df_estado = df_agrupado[df_agrupado['estado de la tarea'] == estado]
+for prioridad in df_agrupado['prioridad de la tarea'].unique():
+    df_prioridad = df_agrupado[df_agrupado['prioridad de la tarea'] == prioridad]
     fig.add_trace(go.Bar(
-        x=df_estado['funcionario'],
-        y=df_estado['conteo'],
-        name=estado,
-        text=df_estado['conteo'],
+        x=df_prioridad['funcionario'],
+        y=df_prioridad['conteo'],
+        name=prioridad,
+        text=df_prioridad['conteo'],
         textposition='auto'
     ))
 
 fig.update_layout(
-    title='Cantidad de Tareas Activas e Inactivas por Funcionario',
+    title='Prioridad de Tareas por Funcionario',
     xaxis_title='Funcionario',
     yaxis_title='Cantidad de Tareas',
     barmode='group',
