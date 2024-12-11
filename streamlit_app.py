@@ -108,6 +108,27 @@ fig_prioridad.update_layout(
 
 st.plotly_chart(fig_prioridad, use_container_width=True)
 
+# Tercera gráfica: Cantidad de tareas a entregar según la fecha de entrega
+df_agrupado_fecha = df_filtrado.groupby('fecha de entrega').size().reset_index(name='conteo')
+
+fig_fecha = go.Figure()
+
+fig_fecha.add_trace(go.Bar(
+    x=df_agrupado_fecha['fecha de entrega'],
+    y=df_agrupado_fecha['conteo'],
+    text=df_agrupado_fecha['conteo'],
+    textposition='auto'
+))
+
+fig_fecha.update_layout(
+    title='Cantidad de Tareas a Entregar según la Fecha de Entrega',
+    xaxis_title='Fecha de Entrega',
+    yaxis_title='Cantidad de Tareas',
+    height=400
+)
+
+st.plotly_chart(fig_fecha, use_container_width=True)
+
 # Añadir reseña al final de la interfaz
 st.markdown("""
   <div style="margin-top: 50px; text-align: center;">
