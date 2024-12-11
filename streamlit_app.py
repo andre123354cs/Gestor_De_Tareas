@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 
 st.set_page_config(
     page_title="MetaData",
@@ -52,9 +53,24 @@ st.dataframe(df_filtrado, use_container_width=True)
 df_agrupado = df_filtrado.groupby(['funcionario', 'estado de la tarea']).size().reset_index(name='conteo')
 
 # Crear gráfico de barras para visualizar las tareas activas e inactivas por funcionario
-fig = px.bar(df_agrupado, x='funcionario', y='conteo', color='estado de la tarea', 
-             title='Cantidad de Tareas Activas e Inactivas por Funcionario', 
-             labels={'conteo': 'Cantidad de Tareas', 'funcionario': 'Funcionario'}, 
-             barmode='group', height=400)
+fig = go.Figure()
+
+for estado in df_agrupado['estado de la tarea'].unique():
+    df_estado = df_agrupado[df_agrupado['estado de la tarea'] == estado]
+    fig.add_trace(go.Bar(
+        x=df_estado['funcionario'],
+        y=df_estado['conteo'],
+        name=estado,
+        text=df_estado['conteo'],
+        textposition='auto'
+    ))
+
+fig.update_layout(
+    title='Cantidad de Tareas Activas e Inactivas por Funcionario',
+    xaxis_title='Funcionario',
+    yaxis_title='Cantidad de Tareas',
+    barmode='group',
+    height=400
+)
 
 st.plotly_chart(fig, use_container_width=True)
