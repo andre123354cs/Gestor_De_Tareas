@@ -9,32 +9,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# URL de tu imagen de fondo
-background_url = 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pxfuel.com%2Fen%2Fquery%3Fq%3Dfondos%2Bde%2Bpantalla%2Bmar&psig=AOvVaw0RZbxiw7bQmKPNkKeoY8rV&ust=1733974285833000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCKibot7jnooDFQAAAAAdAAAAABAJ'
 
-st.markdown(f"""
-    <style>
-    body {{
-        background-image: url('{background_url}');
-        background-size: cover;
-    }}
-    .titulo {{
-        color: #000000;  /* Negro muy oscuro */
-        font-size: 29px;
-        text-align: center;
-    }}
-    .subtitulo {{
-        text-align: left;
-        color: #000000;  /* Negro muy oscuro */
-        font-size: 15px;
-    }}
-    .logo {{
-        order: 2;
-        width: 100px;
-        height: 100px;
-    }}
-    </style>
-""", unsafe_allow_html=True)
 
 st.markdown("""
   <div style="display: flex; justify-content: Center; align-items: Center;">
