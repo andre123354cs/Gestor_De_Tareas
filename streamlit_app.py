@@ -26,10 +26,42 @@ gsheetid='1RbnK8K17h7ttYIDlg9FHtIhkyK8RvrSBqWEeeoMXt68'
 sheetod='0'
 url = f'https://docs.google.com/spreadsheets/d/{gsheetid}/export?format=csv&gid={sheetod}&format'
 
-dfDatos= pd.read_csv(url)
+df= pd.read_csv(url)
 
-st.dataframe(dfDatos, use_container_width=True)
+st.dataframe(df, use_container_width=True)
     
     
     
     
+# Obtener los valores únicos de la columna 'estado de la tarea'
+estados_unicos = df['estado de la tarea'].unique()
+
+# Filtrar por funcionario y obtener los valores únicos
+funcionarios_unicos = df['funcionario'].unique()
+
+estado_selector = widgets.Dropdown(
+    options=estados_unicos,
+    description='Estado de la Tarea:',
+    disabled=False,
+)
+
+funcionario_selector = widgets.Dropdown(
+    options=funcionarios_unicos,
+    description='Funcionario:',
+    disabled=False,
+)
+
+# Función para filtrar los datos según las selecciones
+def filtrar_datos(estado, funcionario):
+    filtro = df[(df['estado_tarea'] == estado) & (df['funcionario'] == funcionario)]
+    return filtro
+
+# Mostrar widgets
+display(estado_selector, funcionario_selector)
+
+# Filtrar datos cuando se cambia una selección
+def actualizar_filtro(change):
+    estado = estado_selector.value
+    funcionario = funcionario_selector.value
+    datos_filtrados = filtrar_datos(estado, funcionario)
+    print(datos_filtrados)
