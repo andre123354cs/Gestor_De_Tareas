@@ -39,3 +39,4 @@ estados_unicos = df['estado de la tarea'].unique()
 # Filtrar por funcionario y obtener los valores únicos
 funcionarios_unicos = df['funcionario'].unique()
 
+novedad_seleccionada = st.multiselect('Selecciona Estados', estados_unicos)
